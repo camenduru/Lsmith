@@ -8,6 +8,7 @@ import { ThemeProvider } from './styles'
 import { Engine } from './tabs/engine'
 import { Img2Img } from './tabs/img2img'
 import { Txt2Img } from './tabs/txt2img'
+import { Command } from './tabs/run'
 
 export const App = () => {
   return (
@@ -23,6 +24,7 @@ const PAGES = {
   txt2img: Txt2Img,
   img2img: Img2Img,
   engine: Engine,
+  command: Command,
 }
 
 const Index = () => {

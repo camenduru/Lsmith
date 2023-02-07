@@ -15,4 +15,5 @@ models/ModelListResponseModel.ts
 models/SetRunnerRequest.ts
 models/ValidationError.ts
 models/index.ts
+models/RunRequest.ts
 runtime.ts

@@ -23,6 +23,7 @@ import type {
   ModelCurrentResponseModel,
   ModelListResponseModel,
   SetRunnerRequest,
+  RunRequest,
 } from '../models';
 import {
     BaseResponseModelFromJSON,
@@ -41,6 +42,8 @@ import {
     ModelListResponseModelToJSON,
     SetRunnerRequestFromJSON,
     SetRunnerRequestToJSON,
+    RunRequestFromJSON,
+    RunRequestToJSON,
 } from '../models';
 
 export interface BuildEngineRequest {
@@ -58,6 +61,10 @@ export interface GetImageRequest {
 
 export interface SetRunnerOperationRequest {
     setRunnerRequest: SetRunnerRequest;
+}
+
+export interface RunCommandRequest {
+    runRequest: RunRequest;
 }
 
 /**
@@ -247,6 +254,39 @@ export class MainApi extends runtime.BaseAPI {
      */
     async setRunner(requestParameters: SetRunnerOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BaseResponseModel> {
         const response = await this.setRunnerRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Run Command
+     */
+    async runCommandRaw(requestParameters: RunCommandRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
+        if (requestParameters.runRequest === null || requestParameters.runRequest === undefined) {
+            throw new runtime.RequiredError('runRequest','Required parameter requestParameters.runRequest was null or undefined when calling runCommand.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/api/command/run`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: RunRequestToJSON(requestParameters.runRequest),
+        }, initOverrides);
+
+        return new runtime.TextApiResponse(response) as any;
+    }
+
+    /**
+     * Run Command
+     */
+    async runCommand(requestParameters: RunCommandRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
+        const response = await this.runCommandRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

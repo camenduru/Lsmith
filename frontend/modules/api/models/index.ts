@@ -11,3 +11,4 @@ export * from './ModelCurrentResponseModel';
 export * from './ModelListResponseModel';
 export * from './SetRunnerRequest';
 export * from './ValidationError';
+export * from './RunRequest';
