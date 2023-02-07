@@ -32,7 +32,7 @@ git submodule update --init --recursive
 ```
 2. Launch using Docker compose
 ```sh
-docker compose up
+docker compose up --build
 ```
 
 ## Linux | Difficult
@@ -65,7 +65,7 @@ pnpm build --out-dir ../dist
 4. Run launch.sh with the path to libnvinfer_plugin.so in the LD_PRELOAD variable.
 ```sh
 ex.)
-LD_PRELOAD="/lib/src/TensorRT/build/out/libnvinfer_plugin.so.8" bash launch.sh --host 0.0.0.0
+bash launch.sh --host 0.0.0.0
 ```
 
 ## Windows | Difficult
@@ -80,6 +80,7 @@ LD_PRELOAD="/lib/src/TensorRT/build/out/libnvinfer_plugin.so.8" bash launch.sh -
 
 1. Install nvidia gpu driver
 2. Instal cuda 11.x (Click [here](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/) for the official guide)
+2. Instal cudnn 8.6.0 (Click [here](https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html) for the official guide)
 3. Install tensorrt 8.5.3.1 (Click [here](https://docs.nvidia.com/deeplearning/tensorrt/install-guide/index.html) for the official guide)
 4. Clone Lsmith repository
 ```sh
@@ -87,7 +88,13 @@ git clone https://github.com/ddPn08/Lsmith.git
 cd Lsmith
 git submodule update --init --recursive
 ```
-5. Launch `launch-user.bat`
+5. Enter frontend directory and build frontend
+```sh
+cd frontend
+pnpm i
+pnpm build --out-dir ../dist
+```
+6. Launch `launch-user.bat`
 
 <br />
 
