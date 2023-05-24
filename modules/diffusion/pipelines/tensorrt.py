@@ -189,8 +189,8 @@ class TensorRTStableDiffusionPipeline(DiffusersPipeline):
         num_images_per_prompt,
         do_classifier_free_guidance,
         negative_prompt=None,
-        prompt_embeds: torch.FloatTensor | None = None,
-        negative_prompt_embeds: torch.FloatTensor | None = None,
+        prompt_embeds: Optional[torch.FloatTensor] = None,
+        negative_prompt_embeds: Optional[torch.FloatTensor] = None,
     ):
         return (
             super()
@@ -214,14 +214,14 @@ class TensorRTStableDiffusionPipeline(DiffusersPipeline):
         self,
         vae_scale_factor: int,
         unet_in_channels: int,
-        image: torch.Tensor | None,
+        image: Optional[torch.Tensor] = None,
         timestep: torch.Tensor,
         batch_size: int,
         height: int,
         width: int,
         dtype: torch.dtype,
         generator: Generator,
-        latents: torch.Tensor = None,
+        latents: Optional[torch.Tensor] = None,
     ):
         dtype = torch.float32
         if image is not None and self.full_acceleration:
