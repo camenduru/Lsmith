@@ -237,6 +237,7 @@ class TensorRTStableDiffusionPipeline(DiffusersPipeline):
             latents = self.scheduler.add_noise(init_latents, noise, timestep)
             return latents
         return super().prepare_latents(
+            self,
             vae_scale_factor,
             unet_in_channels,
             image,
