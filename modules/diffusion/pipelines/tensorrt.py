@@ -215,15 +215,15 @@ class TensorRTStableDiffusionPipeline(DiffusersPipeline):
         vae_scale_factor: int,
         unet_in_channels: int,
         image: Optional[torch.Tensor] = None,
-        timestep: torch.Tensor,
-        batch_size: int,
-        height: int,
-        width: int,
-        dtype: torch.dtype,
-        generator: Generator,
-        latents: torch.Tensor = None,
-    ):
-        dtype = torch.float32
+        timestep: Optional[torch.Tensor] = None,
+        batch_size: int = 1,
+        height: int = 256,
+        width: int = 256,
+        dtype: Optional[torch.dtype] = None,
+        generator: Optional[Generator] = None,
+        latents: Optional[torch.Tensor] = None,
+    ) -> torch.Tensor:
+        dtype = dtype or torch.float32
         if image is not None and self.full_acceleration:
             image = image.to(self.device).to(dtype)
             image = image.repeat(batch_size, 1, 1, 1)
