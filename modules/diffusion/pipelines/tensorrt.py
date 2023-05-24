@@ -221,7 +221,7 @@ class TensorRTStableDiffusionPipeline(DiffusersPipeline):
         width: int,
         dtype: torch.dtype,
         generator: Generator,
-        latents: Optional[torch.Tensor] = None,
+        latents: torch.Tensor = None,
     ):
         dtype = torch.float32
         if image is not None and self.full_acceleration:
@@ -237,7 +237,6 @@ class TensorRTStableDiffusionPipeline(DiffusersPipeline):
             latents = self.scheduler.add_noise(init_latents, noise, timestep)
             return latents
         return super().prepare_latents(
-            self,
             vae_scale_factor,
             unet_in_channels,
             image,
