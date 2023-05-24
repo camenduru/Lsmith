@@ -214,14 +214,14 @@ class TensorRTStableDiffusionPipeline(DiffusersPipeline):
         self,
         vae_scale_factor: int,
         unet_in_channels: int,
-        image: Optional[torch.Tensor] = None,
-        timestep: Optional[torch.Tensor] = None,
+        image: Optional[torch.Tensor],
+        timestep: torch.Tensor,
         batch_size: int,
         height: int,
         width: int,
-        dtype: Optional[torch.dtype] = None,
-        generator: Optional[Generator] = None,
-        latents: Optional[torch.Tensor] = None,
+        dtype: torch.dtype,
+        generator: Generator,
+        latents: torch.Tensor = None,
     ):
         dtype = torch.float32
         if image is not None and self.full_acceleration:
